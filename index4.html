@@ -1,0 +1,1838 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DISCORD | Gaming Community</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+    --bg: #101014;
+    --sidebar: #17171f;
+    --panel: #20202a;
+    --panel2: #292936;
+    --purple: #9164ff;
+    --purple2: #6335cf;
+    --text: #f5f5fa;
+    --muted: #9696a7;
+    --green: #43dc91;
+    --border: #343441;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', Arial, sans-serif;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #444451;
+    border-radius: 10px;
+}
+
+/* BUTTON EFFECTS */
+
+button {
+    transition: .2s ease;
+}
+
+button:hover {
+    filter: brightness(1.3);
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: scale(.94);
+}
+
+/* LOGIN */
+
+#login {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background:
+        radial-gradient(circle at 20% 20%, #48258a55, transparent 35%),
+        radial-gradient(circle at 80% 80%, #38206e55, transparent 35%),
+        #101014;
+}
+
+.login-box {
+    width: 390px;
+    padding: 38px;
+    text-align: center;
+    border-radius: 20px;
+    background: #1c1c27;
+    border: 1px solid #7045d8;
+    box-shadow: 0 0 50px #8050ed35;
+}
+
+.login-logo {
+    font-size: 38px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #a987ff;
+    margin-bottom: 10px;
+    text-shadow: 0 0 25px #9164ff;
+}
+
+.login-box p {
+    color: var(--muted);
+    font-size: 13px;
+    margin-bottom: 23px;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 14px;
+    margin: 8px 0;
+    background: #111119;
+    border: 1px solid #393945;
+    border-radius: 9px;
+    color: white;
+    outline: none;
+}
+
+input:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 10px #9164ff35;
+}
+
+.primary-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(110deg,#7040d9,#9b69ff);
+    border: none;
+    border-radius: 9px;
+    color: white;
+    font-weight: 800;
+    cursor: pointer;
+    margin-top: 12px;
+}
+
+/* APPLICATION */
+
+#app {
+    display: none;
+    height: 100vh;
+    grid-template-columns: 76px 245px minmax(0,1fr) 220px;
+}
+
+/* SERVER BAR */
+
+.server-bar {
+    background: #101015;
+    padding: 13px 9px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    overflow-y: auto;
+    border-right: 1px solid #272731;
+}
+
+.server-icon {
+    width: 49px;
+    height: 49px;
+    border-radius: 17px;
+    background: #292936;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 23px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: .25s;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.server-icon:hover {
+    background: var(--purple2);
+    border-radius: 13px;
+    transform: scale(1.09);
+    box-shadow: 0 0 20px #9164ff75;
+}
+
+.server-icon.active {
+    background: var(--purple2);
+    border-radius: 13px;
+    border-color: #b59aff;
+}
+
+.server-icon.active:before {
+    content: "";
+    position: absolute;
+    left: -10px;
+    width: 4px;
+    height: 28px;
+    border-radius: 5px;
+    background: #a987ff;
+}
+
+.add-server {
+    color: #51e5a1;
+    background: #163d30;
+}
+
+.explore-icon {
+    background: #292936;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+    background: var(--sidebar);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-right: 1px solid #30303a;
+}
+
+.sidebar-header {
+    height: 60px;
+    padding: 18px;
+    font-size: 19px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    color: #bd9aff;
+    border-bottom: 1px solid var(--border);
+    text-shadow: 0 0 15px #9164ff55;
+}
+
+.find-box {
+    margin: 13px;
+    padding: 12px;
+    background: #101017;
+    border-radius: 8px;
+    font-size: 11px;
+    color: #aaa;
+    cursor: pointer;
+    border: 1px solid #33333e;
+    transition: .2s;
+}
+
+.find-box:hover {
+    background: #34244e;
+    border-color: var(--purple);
+    color: white;
+}
+
+.section-title {
+    padding: 13px;
+    color: #858594;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.3px;
+}
+
+.sidebar-item {
+    padding: 11px 14px;
+    margin: 2px 8px;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #bcbcca;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.sidebar-item:hover {
+    background: #353143;
+    color: white;
+    padding-left: 19px;
+}
+
+.sidebar-item.active {
+    background: #35264e;
+    color: #c4a8ff;
+}
+
+.server-details {
+    padding: 10px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.channel {
+    padding: 10px;
+    color: #a4a4b1;
+    border-radius: 7px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.channel:hover {
+    background: #302d3c;
+    color: white;
+    padding-left: 16px;
+}
+
+.profile {
+    background: #111118;
+    padding: 11px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-top: 1px solid var(--border);
+}
+
+.avatar {
+    width: 37px;
+    height: 37px;
+    border-radius: 50%;
+    background: linear-gradient(135deg,#8857f2,#422b89);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 800;
+    flex-shrink: 0;
+}
+
+.profile-info {
+    flex: 1;
+    font-size: 11px;
+    min-width: 0;
+}
+
+.profile-info small {
+    color: var(--green);
+}
+
+.profile button {
+    border: none;
+    background: transparent;
+    color: #aaa;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+/* MAIN CHAT */
+
+.main {
+    background: #22222d;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    position: relative;
+}
+
+.topbar {
+    height: 61px;
+    min-height: 61px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    border-bottom: 1px solid #393945;
+    background: #20202a;
+}
+
+.topbar h3 {
+    font-size: 15px;
+    flex: 1;
+}
+
+.topbar button {
+    background: transparent;
+    border: none;
+    color: #aaa;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.topbar button:hover {
+    color: white;
+}
+
+.chat-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 22px;
+}
+
+.welcome {
+    margin-top: 120px;
+    text-align: center;
+    color: var(--muted);
+}
+
+.welcome h1 {
+    font-size: 32px;
+    color: white;
+    margin-bottom: 12px;
+}
+
+.welcome-icon {
+    font-size: 55px;
+    margin-bottom: 20px;
+}
+
+/* MESSAGES */
+
+.message {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 23px;
+    padding: 5px;
+    border-radius: 8px;
+    transition: .2s;
+}
+
+.message:hover {
+    background: #ffffff07;
+}
+
+.message-avatar {
+    width: 39px;
+    height: 39px;
+    background: linear-gradient(135deg,#8c5bea,#49308b);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.message-body {
+    font-size: 13px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.message-body strong {
+    color: #c9adff;
+    cursor: pointer;
+}
+
+.message-body strong:hover {
+    text-decoration: underline;
+}
+
+.message-body small {
+    color: #777;
+    margin-left: 8px;
+    font-size: 10px;
+}
+
+.message-body p {
+    color: #ddd;
+    margin-top: 3px;
+}
+
+/* CHAT INPUT */
+
+.chat-input-area {
+    padding: 14px 17px 18px;
+}
+
+.chat-input {
+    display: flex;
+    align-items: center;
+    background: #15151d;
+    padding: 8px 10px;
+    border: 1px solid #383844;
+    border-radius: 12px;
+    gap: 11px;
+    transition: .2s;
+}
+
+.chat-input:focus-within {
+    border-color: #9164ff;
+    box-shadow: 0 0 15px #9164ff20;
+}
+
+.chat-input button {
+    border: none;
+    background: transparent;
+    color: #aaa;
+    font-size: 21px;
+    cursor: pointer;
+}
+
+.chat-input input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    min-width: 0;
+    padding: 10px 0;
+}
+
+.send {
+    color: #b38dff !important;
+}
+
+/* EMOJI AND STICKER PANEL */
+
+.picker {
+    display: none;
+    position: absolute;
+    right: 20px;
+    bottom: 85px;
+    width: 310px;
+    background: #292936;
+    border: 1px solid #605078;
+    border-radius: 14px;
+    box-shadow: 0 10px 40px #0009;
+    padding: 13px;
+    z-index: 5;
+}
+
+.picker-header {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.picker-header button {
+    flex: 1;
+    padding: 9px;
+    background: #191922;
+    border: none;
+    color: #aaa;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.picker-header button.active {
+    background: #7048c8;
+    color: white;
+}
+
+.picker-grid {
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    gap: 8px;
+    max-height: 220px;
+    overflow-y: auto;
+}
+
+.picker-item {
+    background: #383846;
+    border: 1px solid transparent;
+    border-radius: 9px;
+    font-size: 28px;
+    padding: 9px 3px;
+    cursor: pointer;
+}
+
+.picker-item:hover {
+    background: #59408b;
+    border-color: #ad89ff;
+    transform: scale(1.08);
+}
+
+/* MEMBERS PANEL */
+
+.members {
+    background: #191922;
+    padding: 14px 10px;
+    overflow-y: auto;
+    border-left: 1px solid #30303a;
+}
+
+.members h4 {
+    font-size: 10px;
+    color: #858594;
+    margin: 18px 0 10px;
+    letter-spacing: 1px;
+}
+
+.member {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 8px 6px;
+    font-size: 11px;
+    color: #c0c0ca;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.member:hover {
+    background: #383044;
+    color: white;
+    transform: translateX(4px);
+}
+
+.member-avatar {
+    width: 31px;
+    height: 31px;
+    border-radius: 50%;
+    background: linear-gradient(135deg,#7550c8,#30264a);
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+}
+
+.online {
+    width: 8px;
+    height: 8px;
+    background: var(--green);
+    border-radius: 50%;
+    margin-left: auto;
+    box-shadow: 0 0 8px var(--green);
+}
+
+.role-owner { color: #ffcc65; }
+.role-admin { color: #f58c9e; }
+.role-dev { color: #63c6ff; }
+
+/* FRIENDS */
+
+.friend-page {
+    display: none;
+    flex: 1;
+    padding: 25px;
+    overflow-y: auto;
+}
+
+.friend-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px;
+    background: #30303c;
+    border-radius: 10px;
+    margin: 10px 0;
+    gap: 10px;
+}
+
+.friend-card button {
+    padding: 8px 12px;
+    background: #7650db;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+/* MODALS */
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #000b;
+    z-index: 20;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+.modal-box {
+    width: 360px;
+    max-width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 25px;
+    border-radius: 16px;
+    background: #252531;
+    border: 1px solid #7650db;
+    box-shadow: 0 0 35px #8050ed30;
+    animation: appear .2s ease;
+}
+
+@keyframes appear {
+    from { opacity: 0; transform: scale(.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.modal-box h2 {
+    margin-bottom: 16px;
+    font-size: 20px;
+}
+
+.modal-box input {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    background: #13131c;
+    color: white;
+    border: 1px solid #444;
+    border-radius: 8px;
+    outline: none;
+}
+
+.modal-box button {
+    padding: 11px 14px;
+    background: #8050ed;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+}
+
+.modal-box .wide {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.close {
+    float: right;
+    cursor: pointer;
+    color: #aaa;
+    font-size: 18px;
+}
+
+.close:hover {
+    color: white;
+}
+
+/* PROFILE MODAL */
+
+.profile-cover {
+    height: 90px;
+    background: linear-gradient(120deg,#5435a2,#a36bff,#222);
+    border-radius: 10px;
+    margin-bottom: 0;
+}
+
+.big-avatar {
+    width: 80px;
+    height: 80px;
+    margin-top: -35px;
+    margin-left: 15px;
+    border-radius: 50%;
+    border: 5px solid #252531;
+    background: linear-gradient(135deg,#a56bff,#48317c);
+    display: grid;
+    place-items: center;
+    font-size: 32px;
+    position: relative;
+}
+
+.profile-status {
+    color: var(--green);
+    font-size: 12px;
+    margin: 8px 0;
+}
+
+.profile-bio {
+    background: #191922;
+    padding: 13px;
+    border-radius: 9px;
+    margin: 12px 0;
+    font-size: 12px;
+    color: #c3c3ce;
+    line-height: 1.8;
+}
+
+.profile-tag {
+    display: inline-block;
+    background: #40315d;
+    color: #d1baff;
+    padding: 6px 9px;
+    border-radius: 6px;
+    font-size: 10px;
+    margin: 3px;
+}
+
+/* NOTICE */
+
+#notice {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #7048c8;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 9px;
+    display: none;
+    z-index: 50;
+    box-shadow: 0 5px 25px #0007;
+    font-size: 12px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1000px) {
+    #app {
+        grid-template-columns: 65px 205px minmax(0,1fr);
+    }
+    .members {
+        display: none;
+    }
+}
+
+@media(max-width:600px) {
+    #app {
+        grid-template-columns: 55px minmax(0,1fr);
+    }
+    .sidebar {
+        display: none;
+    }
+    .main {
+        grid-column: 2;
+    }
+    .topbar {
+        padding: 0 10px;
+        gap: 10px;
+    }
+    .chat-content {
+        padding: 12px;
+    }
+    .picker {
+        width: 280px;
+        right: 8px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+
+<div id="login">
+    <div class="login-box">
+        <div class="login-logo">◉ DISCORD</div>
+        <p>YOUR GAMING WORLD. YOUR COMMUNITY.</p>
+
+        <input id="loginName" placeholder="Enter your username">
+        <input id="loginEmail" type="email" placeholder="Enter your Gmail address">
+
+        <button class="primary-btn" onclick="login()">
+            ENTER DISCORD ⚡
+        </button>
+
+        <p style="font-size:10px;margin-top:18px">
+            Demo login. Never enter your Google password here.
+            Use Google OAuth for real authentication.
+        </p>
+    </div>
+</div>
+
+<!-- APPLICATION -->
+
+<div id="app">
+
+    <!-- SERVER BAR -->
+
+    <div class="server-bar">
+        <div class="server-icon active" title="Home" onclick="home()">◉</div>
+
+        <div id="serverIcons"></div>
+
+        <div class="server-icon add-server" title="Create server"
+        onclick="openModal('serverModal')">＋</div>
+
+        <div class="server-icon explore-icon" title="Explore"
+        onclick="explore()">🔍</div>
+    </div>
+
+    <!-- SIDEBAR -->
+
+    <div class="sidebar">
+
+        <div class="sidebar-header">◉ DISCORD</div>
+
+        <div class="find-box" onclick="openModal('dmModal')">
+            🔍 FIND AND START A CONVERSATION
+        </div>
+
+        <div class="section-title">YOUR SPACE</div>
+
+        <div class="sidebar-item" onclick="showFriends()">
+            👥 Friends
+        </div>
+
+        <div class="sidebar-item" onclick="showRequests()">
+            ✉ Pending Requests
+        </div>
+
+        <div class="sidebar-item" onclick="explore()">
+            🌎 Explore Communities
+        </div>
+
+        <div class="section-title">DIRECT MESSAGES</div>
+        <div id="dmList"></div>
+
+        <div class="section-title">SERVER CHANNELS</div>
+
+        <div class="server-details" id="channels">
+            <div class="channel"># general</div>
+            <div class="channel"># gaming-chat</div>
+        </div>
+
+        <!-- USER PROFILE -->
+
+        <div class="profile">
+            <div class="avatar" id="myAvatar">U</div>
+
+            <div class="profile-info">
+                <strong id="myName">User</strong><br>
+                <small>● Online</small>
+            </div>
+
+            <button onclick="toggleMic()" id="micBtn" title="Microphone">🎙</button>
+            <button onclick="toggleHeadphones()" id="headBtn" title="Headphones">🎧</button>
+            <button onclick="mySettings()" title="Settings">⚙</button>
+        </div>
+    </div>
+
+    <!-- CHAT -->
+
+    <div class="main">
+
+        <div class="topbar">
+            <h3 id="roomTitle"># general</h3>
+
+            <button title="Inbox" onclick="showNotice('📥 No new messages')">📥</button>
+            <button title="Help" onclick="showNotice('Welcome to Discord! Select a server or friend.')">❔</button>
+            <button title="Voice call" onclick="startCall('Voice')">📞</button>
+            <button title="Video call" onclick="startCall('Video')">📹</button>
+        </div>
+
+        <div class="chat-content" id="chatContent">
+            <div class="welcome">
+                <div class="welcome-icon">◉</div>
+                <h1>WELCOME TO DISCORD</h1>
+                <p>Your people. Your games. Your universe.</p>
+                <br>
+                <p>Select a server from the left to start chatting.</p>
+            </div>
+        </div>
+
+        <!-- FRIENDS PAGE -->
+
+        <div class="friend-page" id="friendPage">
+            <h2 id="friendHeading">Friends</h2>
+            <div id="friendContent"></div>
+        </div>
+
+        <!-- STICKER PICKER -->
+
+        <div class="picker" id="picker">
+
+            <div class="picker-header">
+                <button id="emojiTab" class="active" onclick="showPicker('emoji')">
+                    😀 Emojis
+                </button>
+
+                <button id="stickerTab" onclick="showPicker('sticker')">
+                    🎨 Stickers
+                </button>
+            </div>
+
+            <div class="picker-grid" id="pickerGrid"></div>
+        </div>
+
+        <!-- CHAT INPUT -->
+
+        <div class="chat-input-area" id="chatInputArea">
+
+            <div class="chat-input">
+
+                <button title="More options" onclick="openModal('actionModal')">＋</button>
+
+                <input id="messageInput"
+                placeholder="Message your community..."
+                onkeydown="if(event.key==='Enter')sendMessage()">
+
+                <button title="Emoji and stickers"
+                onclick="togglePicker()">😀</button>
+
+                <button class="send" onclick="sendMessage()">➤</button>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MEMBERS -->
+
+    <div class="members" id="members">
+
+        <h4>ONLINE MEMBERS</h4>
+        <div id="onlineMembers"></div>
+
+        <h4>OWNER OF SERVER</h4>
+        <div class="member" onclick="openProfile('Server Owner')">
+            <div class="member-avatar">👑</div>
+            <span class="role-owner">Server Owner</span>
+            <div class="online"></div>
+        </div>
+
+        <h4>ADMINS</h4>
+        <div class="member" onclick="openProfile('Admin One')">
+            <div class="member-avatar">🛡️</div>
+            <span class="role-admin">Admin One</span>
+            <div class="online"></div>
+        </div>
+
+        <div class="member" onclick="openProfile('Admin Two')">
+            <div class="member-avatar">🛡️</div>
+            <span class="role-admin">Admin Two</span>
+        </div>
+
+        <h4>ALLIANCE</h4>
+        <div class="member" onclick="openProfile('Alliance Member')">
+            <div class="member-avatar">⚔️</div>
+            Alliance Member
+        </div>
+
+        <h4>MINECRAFT DEVELOPER</h4>
+        <div class="member" onclick="openProfile('BlockMaster')">
+            <div class="member-avatar">🧱</div>
+            <span class="role-dev">BlockMaster</span>
+        </div>
+
+        <h4>KYBER BOOST</h4>
+        <div class="member" onclick="openProfile('GalaxyKing')">
+            <div class="member-avatar">🚀</div>
+            GalaxyKing
+        </div>
+
+        <h4>GALACTIC CITIZEN</h4>
+        <div class="member" onclick="openProfile('StarBoy')">
+            <div class="member-avatar">🌌</div>
+            StarBoy
+        </div>
+
+        <h4>HOLORET CREATURES</h4>
+        <div class="member" onclick="openProfile('Shadow')">
+            <div class="member-avatar">👾</div>
+            Shadow
+        </div>
+
+        <h4>ARTISTS</h4>
+        <div class="member" onclick="openProfile('PixelArtist')">
+            <div class="member-avatar">🎨</div>
+            PixelArtist
+        </div>
+
+        <h4>LEVEL 100 HEROES</h4>
+        <div class="member" onclick="openProfile('Legend')">
+            <div class="member-avatar">🏆</div>
+            Legend
+        </div>
+
+        <h4>LEVEL 80 STARS</h4>
+        <div class="member" onclick="openProfile('Champion')">
+            <div class="member-avatar">⭐</div>
+            Champion
+        </div>
+
+        <h4>LEVEL 60 BLASTERS</h4>
+        <div class="member" onclick="openProfile('Blaster')">
+            <div class="member-avatar">💥</div>
+            Blaster
+        </div>
+
+    </div>
+
+</div>
+
+<!-- CREATE SERVER -->
+
+<div class="modal" id="serverModal">
+    <div class="modal-box">
+        <span class="close" onclick="closeModal('serverModal')">✖</span>
+        <h2>🚀 Create Your Server</h2>
+        <p style="color:#aaa;font-size:12px">Build your own gaming community.</p>
+        <input id="newServer" placeholder="Enter server name">
+        <button class="wide" onclick="createServer()">CREATE SERVER</button>
+    </div>
+</div>
+
+<!-- DIRECT MESSAGE -->
+
+<div class="modal" id="dmModal">
+    <div class="modal-box">
+        <span class="close" onclick="closeModal('dmModal')">✖</span>
+        <h2>💬 Start Conversation</h2>
+        <input id="dmName" placeholder="Enter friend's username">
+        <button class="wide" onclick="startDM()">START CHAT</button>
+    </div>
+</div>
+
+<!-- ACTIONS -->
+
+<div class="modal" id="actionModal">
+    <div class="modal-box">
+        <span class="close" onclick="closeModal('actionModal')">✖</span>
+        <h2>＋ ADD TO CHAT</h2>
+        <button class="wide" onclick="createPoll()">📊 Create Poll</button>
+        <button class="wide" onclick="togglePicker();closeModal('actionModal')">😀 Emojis & Stickers</button>
+        <button class="wide" onclick="showNotice('🎮 Games menu requested')">🎮 Games</button>
+        <button class="wide" onclick="shareYoutube()">▶ Share YouTube</button>
+        <button class="wide" onclick="scheduleMessage()">⏰ Schedule Message</button>
+    </div>
+</div>
+
+<!-- MEMBER PROFILE -->
+
+<div class="modal" id="profileModal">
+    <div class="modal-box">
+
+        <span class="close" onclick="closeModal('profileModal')">✖</span>
+
+        <div class="profile-cover"></div>
+
+        <div class="big-avatar" id="profileAvatar">S</div>
+
+        <h2 id="profileName" style="margin-top:10px">Member</h2>
+
+        <div class="profile-status" id="profileStatus">● Online</div>
+
+        <div class="profile-bio">
+            <strong>ABOUT ME</strong>
+            <p id="profileBio" style="margin-top:8px">
+                Gaming enthusiast and community member.
+            </p>
+            <br>
+            <strong>MEMBER INFORMATION</strong>
+            <p id="profileInfo" style="margin-top:8px">
+                Member since 2025<br>
+                Playing games
+            </p>
+        </div>
+
+        <strong style="font-size:12px">ROLES & BADGES</strong>
+        <div id="profileTags" style="margin-top:9px"></div>
+
+        <button class="wide" onclick="messageFromProfile()">
+            💬 SEND MESSAGE
+        </button>
+
+        <button class="wide" onclick="closeModal('profileModal')">
+            CLOSE PROFILE
+        </button>
+
+    </div>
+</div>
+
+<!-- SETTINGS -->
+
+<div class="modal" id="settingsModal">
+    <div class="modal-box">
+        <span class="close" onclick="closeModal('settingsModal')">✖</span>
+        <h2>⚙ Profile Settings</h2>
+        <input id="editUsername" placeholder="Change username">
+        <button class="wide" onclick="saveSettings()">SAVE CHANGES</button>
+        <button class="wide" onclick="logout()">LOG OUT</button>
+    </div>
+</div>
+
+<div id="notice"></div>
+
+<script>
+
+/* INITIAL DATA */
+
+const servers = [
+    {name:"yesSmartyPie",icon:"🎮"},
+    {name:"Chapati Hindustani Gamer",icon:"🍪"},
+    {name:"Live Insaan",icon:"🔴"},
+    {name:"Ujjwal Gaming",icon:"🔥"},
+    {name:"Minecraft Legends",icon:"⛏️"},
+    {name:"Gamer's Universe",icon:"🌌"},
+    {name:"Anime World",icon:"👾"}
+];
+
+const initialMembers = [
+    "Smarty","Gaming Beast","Shadow Gamer",
+    "Pixel King","Galaxy Boy"
+];
+
+const friends = [
+    "Smarty","Gaming Beast","Shadow Gamer",
+    "Pixel King","Legend 100","Galaxy Boy"
+];
+
+const roles = {
+    "Server Owner":["OWNER"],
+    "Admin One":["ADMIN"],
+    "Admin Two":["ADMIN"],
+    "BlockMaster":["MINECRAFT DEVELOPER"],
+    "GalaxyKing":["KYBER BOOST"],
+    "StarBoy":["GALACTIC CITIZEN"],
+    "Shadow":["HOLORET CREATURE"],
+    "PixelArtist":["ARTIST"],
+    "Legend":["LEVEL 100 HERO"],
+    "Champion":["LEVEL 80 STAR"],
+    "Blaster":["LEVEL 60 BLASTER"],
+    "Smarty":["COMMUNITY MEMBER"],
+    "Gaming Beast":["GAMER"],
+    "Shadow Gamer":["GAMER"],
+    "Pixel King":["ARTIST"],
+    "Galaxy Boy":["COMMUNITY MEMBER"]
+};
+
+const bios = {
+    "Server Owner":"The creator of this community. Welcome to the server!",
+    "Admin One":"Helping keep the community safe and friendly.",
+    "Admin Two":"Community moderator and gaming enthusiast.",
+    "BlockMaster":"Minecraft builder, developer and redstone expert.",
+    "GalaxyKing":"Exploring the universe one game at a time.",
+    "StarBoy":"A legendary citizen of the galaxy.",
+    "Shadow":"I love mysterious games and adventures.",
+    "PixelArtist":"Digital artist and creative gamer.",
+    "Legend":"Level 100 hero. Never give up!",
+    "Champion":"Competitive player and community star.",
+    "Blaster":"Ready for action and explosions!",
+    "Smarty":"Gaming, streaming and having fun!",
+    "Gaming Beast":"Pro gamer. Always ready to play.",
+    "Shadow Gamer":"Into action games and adventures.",
+    "Pixel King":"Creating digital art and gaming.",
+    "Galaxy Boy":"Space, games and good vibes."
+};
+
+let pending = ["Dark Knight"];
+let dms = [];
+let messages = {};
+let currentServer = null;
+let currentDM = null;
+let selectedMember = "";
+let micOn = true;
+let headphonesOn = true;
+
+/* LOGIN */
+
+function login() {
+    const name = document.getElementById("loginName").value.trim();
+    const email = document.getElementById("loginEmail").value.trim();
+
+    if (!name || !/^[^\s@]+@gmail\.com$/i.test(email)) {
+        alert("Please enter your username and a valid Gmail address.");
+        return;
+    }
+
+    document.getElementById("myName").textContent = name;
+    document.getElementById("myAvatar").textContent =
+        name[0].toUpperCase();
+
+    document.getElementById("login").style.display = "none";
+    document.getElementById("app").style.display = "grid";
+
+    renderServers();
+    renderOnline();
+    renderDMs();
+
+    showNotice("WELCOME TO DISCORD, " + name + " ⚡");
+}
+
+/* HOME */
+
+function home() {
+    currentServer = null;
+    currentDM = null;
+    document.getElementById("roomTitle").textContent = "DISCORD HOME";
+    document.getElementById("chatContent").style.display = "block";
+    document.getElementById("chatInputArea").style.display = "none";
+    document.getElementById("friendPage").style.display = "none";
+    document.getElementById("channels").innerHTML = "";
+
+    document.getElementById("chatContent").innerHTML =
+        `<div class="welcome">
+        <div class="welcome-icon">◉</div>
+        <h1>WELCOME TO DISCORD</h1>
+        <p>Your people. Your games. Your universe.</p>
+        <br><p>Select a server to enter the action.</p>
+        </div>`;
+}
+
+/* SERVER DISPLAY */
+
+function renderServers() {
+    const container = document.getElementById("serverIcons");
+    container.innerHTML = "";
+
+    servers.forEach(server => {
+        const div = document.createElement("div");
+        div.className = "server-icon";
+        div.textContent = server.icon;
+        div.title = server.name;
+        div.onclick = () => selectServer(server.name);
+        container.appendChild(div);
+    });
+}
+
+function selectServer(name) {
+    currentServer = name;
+    currentDM = null;
+
+    document.getElementById("friendPage").style.display = "none";
+    document.getElementById("chatContent").style.display = "block";
+    document.getElementById("chatInputArea").style.display = "block";
+
+    document.getElementById("roomTitle").textContent = "# " + name;
+    document.getElementById("channels").innerHTML = "";
+
+    ["general","gaming-chat","memes","announcements","voice-lounge"]
+    .forEach(channel => {
+        const div = document.createElement("div");
+        div.className = "channel";
+        div.textContent = channel === "voice-lounge" ? "🔊 voice-lounge" : "# " + channel;
+        div.onclick = () => selectChannel(channel);
+        document.getElementById("channels").appendChild(div);
+    });
+
+    document.getElementById("messageInput").placeholder =
+        "Message " + name + "...";
+
+    renderChat();
+}
+
+function selectChannel(channel) {
+    if (!currentServer) return;
+
+    document.getElementById("roomTitle").textContent =
+        "# " + channel + " | " + currentServer;
+
+    if (channel === "voice-lounge") {
+        showNotice("Voice channel selected. WebRTC is needed for live audio.");
+        return;
+    }
+
+    renderChat(channel);
+}
+
+/* CREATE SERVER */
+
+function createServer() {
+    const name = document.getElementById("newServer").value.trim();
+
+    if (!name) return alert("Enter a server name.");
+
+    if (servers.some(s => s.name.toLowerCase() === name.toLowerCase())) {
+        return alert("This server already exists.");
+    }
+
+    servers.push({name:name,icon:"🌟"});
+
+    closeModal("serverModal");
+    document.getElementById("newServer").value = "";
+
+    renderServers();
+    selectServer(name);
+    showNotice("SERVER CREATED SUCCESSFULLY!");
+}
+
+/* CHAT SYSTEM */
+
+function getChatKey(channel = "general") {
+    return currentServer + "-" + channel;
+}
+
+function renderChat(channel = "general") {
+    const box = document.getElementById("chatContent");
+    box.innerHTML = "";
+
+    let key = currentServer ? getChatKey(channel) : "DM-" + currentDM;
+
+    if (!messages[key]) {
+        messages[key] = currentServer ? [
+            {user:"Server Bot",text:"Welcome to " + currentServer + "! 🎉"},
+            {user:"Smarty",text:"Hey everyone! Welcome to the community."},
+            {user:"Gaming Beast",text:"Who's ready to play today? 🎮"}
+        ] : [
+            {user:currentDM,text:"Hey! Welcome to our private chat."}
+        ];
+    }
+
+    messages[key].forEach(msg => {
+        addMessage(msg.user,msg.text,false);
+    });
+}
+
+function addMessage(user,text,scroll = true) {
+    const box = document.getElementById("chatContent");
+
+    const div = document.createElement("div");
+    div.className = "message";
+
+    const avatar = document.createElement("div");
+    avatar.className = "message-avatar";
+    avatar.textContent = user[0].toUpperCase();
+    avatar.onclick = () => openProfile(user);
+
+    const body = document.createElement("div");
+    body.className = "message-body";
+
+    const name = document.createElement("strong");
+    name.textContent = user;
+    name.onclick = () => openProfile(user);
+
+    const time = document.createElement("small");
+    time.textContent = new Date().toLocaleTimeString([], {
+        hour:"2-digit",minute:"2-digit"
+    });
+
+    const paragraph = document.createElement("p");
+    paragraph.textContent = text;
+
+    body.append(name,time,paragraph);
+    div.append(avatar,body);
+    box.appendChild(div);
+
+    if (scroll) box.scrollTop = box.scrollHeight;
+}
+
+function sendMessage() {
+    const input = document.getElementById("messageInput");
+    const text = input.value.trim();
+
+    if (!text) return;
+
+    if (!currentServer && !currentDM) {
+        showNotice("Select a server or friend first.");
+        return;
+    }
+
+    const user = document.getElementById("myName").textContent;
+
+    const key = currentServer ?
+        getChatKey() : "DM-" + currentDM;
+
+    if (!messages[key]) messages[key] = [];
+
+    messages[key].push({user:user,text:text});
+
+    addMessage(user,text);
+    input.value = "";
+    document.getElementById("picker").style.display = "none";
+}
+
+/* EMOJIS AND STICKERS */
+
+const emojis = [
+    "😀","😂","🤣","😍","😎",
+    "🔥","❤️","💜","💀","😭",
+    "🤯","🥶","😈","👀","🤝",
+    "🎮","🎯","🏆","🚀","⚡",
+    "👾","🐉","🎉","👏","👍",
+    "💯","✨","😴","🤡","🗿"
+];
+
+const stickers = [
+    "😎🔥","👑","💀","🗿","⚡",
+    "🚀","👾","🐉","🎮","🏆",
+    "🤯","😂","🥶","😈","💥",
+    "❤️‍🔥","🎯","🦾","👻","🤖"
+];
+
+function togglePicker() {
+    const picker = document.getElementById("picker");
+
+    picker.style.display =
+        picker.style.display === "block" ? "none" : "block";
+
+    showPicker("emoji");
+}
+
+function showPicker(type) {
+    const grid = document.getElementById("pickerGrid");
+
+    document.getElementById("emojiTab").classList.toggle(
+        "active",type === "emoji");
+
+    document.getElementById("stickerTab").classList.toggle(
+        "active",type === "sticker");
+
+    grid.innerHTML = "";
+
+    const list = type === "emoji" ? emojis : stickers;
+
+    list.forEach(item => {
+        const button = document.createElement("button");
+        button.className = "picker-item";
+        button.textContent = item;
+        button.title = "Send " + item;
+
+        button.onclick = () => sendSticker(item);
+
+        grid.appendChild(button);
+    });
+}
+
+function sendSticker(item) {
+    if (!currentServer && !currentDM) {
+        showNotice("Open a server or chat first.");
+        return;
+    }
+
+    const user = document.getElementById("myName").textContent;
+    const key = currentServer ? getChatKey() : "DM-" + currentDM;
+
+    if (!messages[key]) messages[key] = [];
+
+    messages[key].push({user:user,text:item});
+    addMessage(user,item);
+
+    document.getElementById("picker").style.display = "none";
+}
+
+/* ONLINE MEMBERS */
+
+function renderOnline() {
+    const container = document.getElementById("onlineMembers");
+    container.innerHTML = "";
+
+    initialMembers.forEach(name => {
+        createMember(name,container);
+    });
+}
+
+function createMember(name,container) {
+    const div = document.createElement("div");
+    div.className = "member";
+    div.onclick = () => openProfile(name);
+
+    const avatar = document.createElement("div");
+    avatar.className = "member-avatar";
+    avatar.textContent = name[0].toUpperCase();
+
+    const label = document.createElement("span");
+    label.textContent = name;
+
+    const dot = document.createElement("div");
+    dot.className = "online";
+
+    div.append(avatar,label,dot);
+    container.appendChild(div);
+}
+
+/* MEMBER PROFILES */
+
+function openProfile(name) {
+    selectedMember = name;
+
+    document.getElementById("profileName").textContent = name;
+    document.getElementById("profileAvatar").textContent =
+        name[0].toUpperCase();
+
+    document.getElementById("profileBio").textContent =
+        bios[name] || "Gaming enthusiast and member of the community.";
+
+    document.getElementById("profileInfo").innerHTML =
+        "Member since 2025<br>Gaming enthusiast<br>Community member";
+
+    document.getElementById("profileStatus").textContent =
+        "● Online";
+
+    const tags = document.getElementById("profileTags");
+    tags.innerHTML = "";
+
+    (roles[name] || ["MEMBER"]).forEach(role => {
+        const span = document.createElement("span");
+        span.className = "profile-tag";
+        span.textContent = role;
+        tags.appendChild(span);
+    });
+
+    document.getElementById("profileModal").style.display = "flex";
+}
+
+function messageFromProfile() {
+    closeModal("profileModal");
+    openDM(selectedMember);
+}
+
+/* DIRECT MESSAGES */
+
+function startDM() {
+    const name = document.getElementById("dmName").value.trim();
+
+    if (!name) return alert("Enter a username.");
+
+    closeModal("dmModal");
+    document.getElementById("dmName").value = "";
+
+    openDM(name);
+}
+
+function openDM(name) {
+    currentServer = null;
+    currentDM = name;
+
+    if (!dms.includes(name)) dms.push(name);
+
+    document.getElementById("friendPage").style.display = "none";
+    document.getElementById("chatContent").style.display = "block";
+    document.getElementById("chatInputArea").style.display = "block";
+
+    document.getElementById("roomTitle").textContent = "💬 " + name;
+    document.getElementById("messageInput").placeholder =
+        "Message " + name + "...";
+
+    document.getElementById("channels").innerHTML = "";
+
+    renderDMs();
+    renderChat();
+}
+
+function renderDMs() {
+    const container = document.getElementById("dmList");
+    container.innerHTML = "";
+
+    dms.forEach(name => {
+        const div = document.createElement("div");
+        div.className = "sidebar-item";
+        div.textContent = "💬 " + name;
+        div.onclick = () => openDM(name);
+        container.appendChild(div);
+    });
+}
+
+/* FRIENDS */
+
+function showFriends() {
+    currentServer = null;
+    currentDM = null;
+
+    showFriendPage("👥 ALL FRIENDS");
+
+    const container = document.getElementById("friendContent");
+    container.innerHTML = "";
+
+    friends.forEach(name => {
+        const card = document.createElement("div");
+        card.className = "friend-card";
+
+        const span = document.createElement("span");
+        span.textContent = "🟢 " + name;
+
+        const button = document.createElement("button");
+        button.textContent = "MESSAGE";
+        button.onclick = () => openDM(name);
+
+        card.append(span,button);
+        container.appendChild(card);
+    });
+}
+
+function showRequests() {
+    currentServer = null;
+    currentDM = null;
+
+    showFriendPage("✉ PENDING REQUESTS");
+
+    const container = document.getElementById("friendContent");
+    container.innerHTML = "";
+
+    pending.forEach(name => {
+        const card = document.createElement("div");
+        card.className = "friend-card";
+        card.textContent = name + " (Request sent)";
+        container.appendChild(card);
+    });
+
+    if (!pending.length) {
+        container.textContent = "No pending requests.";
+    }
+}
+
+function showFriendPage(title) {
+    document.getElementById("friendPage").style.display = "block";
+    document.getElementById("chatContent").style.display = "none";
+    document.getElementById("chatInputArea").style.display = "none";
+
+    document.getElementById("friendHeading").textContent = title;
+}
+
+/* EXPLORE */
+
+function explore() {
+    showFriendPage("🌎 EXPLORE COMMUNITIES");
+
+    const container = document.getElementById("friendContent");
+    container.innerHTML = "";
+
+    [
+        "Anime Universe",
+        "Pro Minecraft",
+        "Indian Gaming Hub",
+        "Music Lovers",
+        "Esports Arena",
+        "Meme World"
+    ].forEach(name => {
+        const card = document.createElement("div");
+        card.className = "friend-card";
+
+        const span = document.createElement("span");
+        span.textContent = "🌐 " + name;
+
+        const button = document.createElement("button");
+        button.textContent = "JOIN SERVER";
+        button.onclick = () => joinServer(name);
+
+        card.append(span,button);
+        container.appendChild(card);
+    });
+}
+
+function joinServer(name) {
+    if (!servers.some(s => s.name === name)) {
+        servers.push({name:name,icon:"🌍"});
+        renderServers();
+    }
+
+    selectServer(name);
+    showNotice("YOU JOINED " + name.toUpperCase());
+}
+
+/* POLL */
+
+function createPoll() {
+    closeModal("actionModal");
+
+    const question = prompt("Enter your poll question:");
+    if (!question) return;
+
+    const option1 = prompt("Enter option one:");
+    const option2 = prompt("Enter option two:");
+
+    if (!option1 || !option2) return;
+
+    sendSpecialMessage(
+        "📊 POLL: " + question +
+        " | 1️⃣ " + option1 +
+        " | 2️⃣ " + option2
+    );
+}
+
+function sendSpecialMessage(text) {
+    if (!currentServer && !currentDM) {
+        showNotice("Open a chat first.");
+        return;
+    }
+
+    const user = document.getElementById("myName").textContent;
+    const key = currentServer ? getChatKey() : "DM-" + currentDM;
+
+    if (!messages[key]) messages[key] = [];
+
+    messages[key].push({user:user,text:text});
+    addMessage(user,text);
+}
+
+/* OTHER FEATURES */
+
+function shareYoutube() {
+    closeModal("actionModal");
+    const link = prompt("Paste a YouTube video link:");
+    if (link) sendSpecialMessage("▶ YouTube: " + link);
+}
+
+function scheduleMessage() {
+    closeModal("actionModal");
+    const text = prompt("Enter your scheduled message:");
+    if (!text) return;
+
+    const when = prompt("Enter a date and time:");
+    if (when) showNotice("Demo schedule saved: " + when);
+}
+
+/* CALL CONTROLS */
+
+function startCall(type) {
+    showNotice(type + " call selected. Live calls require WebRTC.");
+}
+
+function toggleMic() {
+    micOn = !micOn;
+    document.getElementById("micBtn").textContent =
+        micOn ? "🎙" : "🔇";
+
+    showNotice(micOn ? "Microphone enabled" : "Microphone muted");
+}
+
+function toggleHeadphones() {
+    headphonesOn = !headphonesOn;
+    document.getElementById("headBtn").textContent =
+        headphonesOn ? "🎧" : "🔕";
+
+    showNotice(headphonesOn ? "Audio enabled" : "Audio disabled");
+}
+
+/* SETTINGS */
+
+function mySettings() {
+    document.getElementById("editUsername").value =
+        document.getElementById("myName").textContent;
+
+    openModal("settingsModal");
+}
+
+function saveSettings() {
+    const name = document.getElementById("editUsername").value.trim();
+
+    if (!name) return alert("Enter a username.");
+
+    document.getElementById("myName").textContent = name;
+    document.getElementById("myAvatar").textContent =
+        name[0].toUpperCase();
+
+    closeModal("settingsModal");
+    showNotice("PROFILE UPDATED");
+}
+
+function logout() {
+    if (!confirm("Are you sure you want to log out?")) return;
+
+    location.reload();
+}
+
+/* MODAL CONTROLS */
+
+function openModal(id) {
+    document.getElementById(id).style.display = "flex";
+}
+
+function closeModal(id) {
+    document.getElementById(id).style.display = "none";
+}
+
+/* NOTIFICATIONS */
+
+function showNotice(message) {
+    const notice = document.getElementById("notice");
+
+    notice.textContent = message;
+    notice.style.display = "block";
+
+    setTimeout(() => {
+        notice.style.display = "none";
+    },2500);
+}
+
+/* CLOSE PICKER ON OUTSIDE CLICK */
+
+document.addEventListener("click",function(event) {
+    const picker = document.getElementById("picker");
+
+    if (!picker.contains(event.target) &&
+        !event.target.closest(".chat-input")) {
+        picker.style.display = "none";
+    }
+});
+
+</script>
+
+</body>
+</html>
